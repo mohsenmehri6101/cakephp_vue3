@@ -1,0 +1,6 @@
+{
+    "require": {
+        "cakephp/authentication": "^2.4",
+        "firebase/php-jwt": "^6.5"
+    }
+}

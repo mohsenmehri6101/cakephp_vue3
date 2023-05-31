@@ -107,4 +107,42 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    // in src/Controller/UsersController.php
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+
+        $this->Authentication->allowUnauthenticated(['login']);
+    }
+
+    // in src/Controller/UsersController.php
+    public function login()
+    {
+        $result = $this->Authentication->getResult();
+        if ($result->isValid()) {
+            $privateKey = file_get_contents(CONFIG . '/jwt.key');
+            $user = $result->getData();
+            $payload = [
+                'iss' => 'myapp',
+                'sub' => $user->id,
+                'exp' => time() + 60,
+            ];
+            $json = [
+                'token' => JWT::encode($payload, $privateKey, 'RS256'),
+            ];
+        } else {
+            $this->response = $this->response->withStatus(401);
+            $json = [];
+        }
+        $this->set(compact('json'));
+        $this->viewBuilder()->setOption('serialize', 'json');
+    }
+
+    // in src/Controller/UsersController.php
+    public function logout()
+    {
+        $this->Authentication->logout();
+    }
+
 }
