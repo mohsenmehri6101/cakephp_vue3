@@ -50,6 +50,11 @@ class AppController extends Controller
     {
         parent::initialize();
 
+//        if (!$this->request->is('ajax')) {
+//            $this->loadComponent('Security');
+//            $this->loadComponent('Csrf');
+//        }
+
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
 
