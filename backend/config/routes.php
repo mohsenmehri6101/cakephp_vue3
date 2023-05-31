@@ -91,4 +91,15 @@ return static function (RouteBuilder $routes) {
      * });
      * ```
      */
+
+    $routes->scope('/api', function (RouteBuilder $builder) {
+
+        # login
+        $builder->post('user/login',['controller'=>'User','action'=>'login','prefix'=>'Api']);
+        # ###### ##### ##### ##### #####
+
+        # logout
+        $builder->post('user/logout',['controller'=>'User','action'=>'logout','prefix'=>'Api']);
+
+    });
 };
