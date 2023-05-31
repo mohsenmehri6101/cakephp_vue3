@@ -57,6 +57,9 @@ return static function (RouteBuilder $routes) {
          */
         $builder->connect('/pages/*', 'Pages::display');
 
+        // from show json even in browser
+        $builder->setExtensions(['json']);
+
         /*
          * Connect catchall routes for all controllers.
          *

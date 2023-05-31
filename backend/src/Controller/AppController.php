@@ -14,9 +14,12 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\View\JsonView;
+
 
 /**
  * Application Controller
@@ -28,6 +31,12 @@ use Cake\Controller\Controller;
  */
 class AppController extends Controller
 {
+
+    public function viewClasses(): array
+    {
+        return [JsonView::class];
+    }
+
     /**
      * Initialization hook method.
      *
