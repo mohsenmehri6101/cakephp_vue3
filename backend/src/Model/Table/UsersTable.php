@@ -70,12 +70,12 @@ class UsersTable extends Table
             ->allowEmptyString('password');
 
         $validator
-            ->dateTime('created_at')
-            ->allowEmptyDateTime('created_at');
+            ->dateTime('created')
+            ->allowEmptyDateTime('created');
 
         $validator
-            ->dateTime('updated_at')
-            ->allowEmptyDateTime('updated_at');
+            ->dateTime('modify')
+            ->allowEmptyDateTime('modify');
 
         return $validator;
     }

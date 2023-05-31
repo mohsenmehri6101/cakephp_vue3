@@ -15,8 +15,8 @@
                     <th><?= $this->Paginator->sort('name') ?></th>
                     <th><?= $this->Paginator->sort('family') ?></th>
                     <th><?= $this->Paginator->sort('email') ?></th>
-                    <th><?= $this->Paginator->sort('created_at') ?></th>
-                    <th><?= $this->Paginator->sort('updated_at') ?></th>
+                    <th><?= $this->Paginator->sort('created') ?></th>
+                    <th><?= $this->Paginator->sort('modify') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -27,8 +27,8 @@
                     <td><?= h($user->name) ?></td>
                     <td><?= h($user->family) ?></td>
                     <td><?= h($user->email) ?></td>
-                    <td><?= h($user->created_at) ?></td>
-                    <td><?= h($user->updated_at) ?></td>
+                    <td><?= h($user->created) ?></td>
+                    <td><?= h($user->modify) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>

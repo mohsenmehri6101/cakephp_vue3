@@ -98,11 +98,8 @@ class Application extends BaseApplication
             // https://book.cakephp.org/4/en/controllers/middleware.html#body-parser-middleware
             ->add(new BodyParserMiddleware());
 
-
         // from check condition csrf-token just from browser requests ( in our html)
-        $accept_json  = isset($_SERVER['HTTP_ACCEPT']) && !is_null($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : null;
-
-        if($accept_json && strtolower($accept_json) != 'application/json'){
+        if(!is_ajax()){
             $middlewareQueue// Cross Site Request Forgery (CSRF) Protection Middleware
             // https://book.cakephp.org/4/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
             ->add(new CsrfProtectionMiddleware([

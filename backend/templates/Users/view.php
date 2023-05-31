@@ -36,11 +36,11 @@
                 </tr>
                 <tr>
                     <th><?= __('Created At') ?></th>
-                    <td><?= h($user->created_at) ?></td>
+                    <td><?= h($user->created) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Updated At') ?></th>
-                    <td><?= h($user->updated_at) ?></td>
+                    <td><?= h($user->modify) ?></td>
                 </tr>
             </table>
         </div>

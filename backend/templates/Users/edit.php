@@ -26,8 +26,8 @@
                     echo $this->Form->control('family');
                     echo $this->Form->control('email');
                     echo $this->Form->control('password');
-                    echo $this->Form->control('created_at');
-                    echo $this->Form->control('updated_at');
+                    echo $this->Form->control('created');
+                    echo $this->Form->control('modify');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
