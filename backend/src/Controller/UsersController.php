@@ -120,7 +120,6 @@ class UsersController extends AppController
     // in src/Controller/UsersController.php
     public function login()
     {
-        dd('login is it');
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
             $privateKey = file_get_contents(CONFIG . '/jwt.key');
@@ -144,7 +143,6 @@ class UsersController extends AppController
     // in src/Controller/UsersController.php
     public function logout()
     {
-        dd('logout is it');
         $this->Authentication->logout();
     }
 
