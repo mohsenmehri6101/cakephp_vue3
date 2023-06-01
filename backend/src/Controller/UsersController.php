@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 /**
  * Users Controller
  *
@@ -52,7 +55,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
-                if(is_ajax()){
+                if (is_ajax()) {
                     $this->set(compact('user'));
                     $this->viewBuilder()->setOption('serialize', ['user']);
                 }
@@ -113,29 +116,34 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
 
-        $this->Authentication->allowUnauthenticated(['view', 'index','login']);
-//        $this->Authentication->allowUnauthenticated(['login']);
+        $this->Authentication->allowUnauthenticated(['login','logout']);
     }
 
     // in src/Controller/UsersController.php
     public function login()
     {
         $result = $this->Authentication->getResult();
+
         if ($result->isValid()) {
             $privateKey = file_get_contents(CONFIG . '/jwt.key');
             $user = $result->getData();
+
             $payload = [
                 'iss' => 'myapp',
                 'sub' => $user->id,
-                'exp' => time() + 60,
+                'exp' => time() + 1000000,
             ];
+
             $json = [
                 'token' => JWT::encode($payload, $privateKey, 'RS256'),
+                'user'=>$user ?? null,
             ];
+
         } else {
             $this->response = $this->response->withStatus(401);
             $json = [];
         }
+
         $this->set(compact('json'));
         $this->viewBuilder()->setOption('serialize', 'json');
     }
@@ -144,6 +152,7 @@ class UsersController extends AppController
     public function logout()
     {
         $this->Authentication->logout();
+        $this->viewBuilder()->setOption('serialize',null);
     }
 
 }

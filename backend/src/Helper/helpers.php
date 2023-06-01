@@ -3,6 +3,11 @@
 if (!function_exists('dd')) {
     function dd(...$var)
     {
+        if(is_object($var)){
+            $var = get_object_vars($var);
+            # $var = json_decode(json_encode($var), true);
+        }
+
         if (is_array($var)) {
             foreach ($var as $v) {
                 echo "<pre>";

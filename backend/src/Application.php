@@ -14,6 +14,7 @@ declare(strict_types=1);
  * @since     3.3.0
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App;
 
 use Cake\Core\Configure;
@@ -108,12 +109,14 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             ->add(new BodyParserMiddleware());
 
         // from check condition csrf-token just from browser requests ( in our html)
-        if(!is_ajax()){
+        if (!is_ajax()) {
             $middlewareQueue// Cross Site Request Forgery (CSRF) Protection Middleware
             // https://book.cakephp.org/4/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
             ->add(new CsrfProtectionMiddleware([
                 'httponly' => true,
             ]));
+        }else{
+            $middlewareQueue->add(new AuthenticationMiddleware($this));
         }
         // from check condition csrf-token just from browser requests ( in our html)
 
@@ -151,12 +154,52 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
     {
         $service = new AuthenticationService();
-        // ...
-        $service->loadIdentifier('Authentication.JwtSubject');
-        $service->loadAuthenticator('Authentication.Jwt', [
-            'secretKey' => file_get_contents(CONFIG . '/jwt.pem'),
-            'algorithm' => 'RS256',
-            'returnPayload' => false
+
+        // Define where users should be redirected to when they are not authenticated
+        $service->setConfig([
+            'unauthenticatedRedirect' => Router::url([
+                'prefix' => false,
+                'plugin' => null,
+                'controller' => 'Users',
+                'action' => 'login',
+            ]),
+            'queryParam' => 'redirect',
         ]);
+
+        $fields = [
+            IdentifierInterface::CREDENTIAL_USERNAME => 'email',
+            IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
+        ];
+
+        if (is_ajax()) {
+            $service = new AuthenticationService();
+            // ...
+            $service->loadIdentifier('Authentication.JwtSubject');
+            $service->loadAuthenticator('Authentication.Jwt', [
+                'secretKey' => file_get_contents(CONFIG . '/jwt.pem'),
+                'algorithm' => 'RS256',
+                'returnPayload' => false
+            ]);
+        }
+        else{
+            $service->loadAuthenticator('Authentication.Session');
+        }
+
+        // Load the authenticators. Session should be first.
+        $service->loadAuthenticator('Authentication.Form', [
+            'fields' => $fields,
+            'loginUrl' => Router::url([
+                'prefix' => false,
+                'plugin' => null,
+                'controller' => 'Users',
+                'action' => 'login',
+            ]),
+        ]);
+
+        // Load identifiers
+        $service->loadIdentifier('Authentication.Password', compact('fields'));
+
+        return $service;
     }
+
 }
