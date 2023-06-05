@@ -13,6 +13,7 @@ const router = createRouter({
     routes: [
         {path: '/', name: 'home', component: Home},
         {path: '/login', name: 'login', component: LoginAuth},
+        {path: '/logout', name: 'logout', component: ()=>{ console.log('logout')}},
         {path: '/users/create', name: 'user-create', component: CreateUser},
         {path: '/users', name: 'users-list', component: ListUser},
         {path: '/users/show', name: 'user-show', component: ReadUser},

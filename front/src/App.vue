@@ -2,31 +2,20 @@
   <v-app id="inspire">
     <v-navigation-drawer>
       <v-list>
-        <v-list-item
-            v-for="({ title,icon,componentName }, index) in links_auth"
-            :key="index"
-            link
-        >
-          <router-link to="/users">
-
+        <v-list-item v-for="({ title,icon,to}, index) in links_auth" :key="index">
+          <router-link :to="to">
+            <span><i class="fas pr-5" :class="icon"></i></span>
+            <span v-text="title"/>
           </router-link>
-          <template v-slot:prepend>
-            <i class="fas pr-5" :class="icon"></i>
-          </template>
-          <v-list-item-title>{{ title }}</v-list-item-title>
         </v-list-item>
       </v-list>
       <v-divider></v-divider>
       <v-list>
-        <v-list-item
-            v-for="({ title,icon,componentName }, index) in links_when_login"
-            :key="index"
-            link
-        >
-          <template v-slot:prepend>
-            <i class="fas pr-5" :class="icon"></i>
-          </template>
-          <v-list-item-title>{{ title }}</v-list-item-title>
+        <v-list-item v-for="({ title,icon,to}, index) in links_when_login" :key="index">
+          <router-link :to="to">
+            <span><i class="fas pr-5" :class="icon"></i></span>
+            <span v-text="title"/>
+          </router-link>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -36,23 +25,22 @@
           class="py-8 px-6"
           fluid
       >
-        <router-view />
+        <router-view/>
       </v-container>
     </v-main>
   </v-app>
 </template>
 <script>
 export default {
-  components: {
-  },
+  components: {},
   data: () => ({
         links_auth: [
-          {icon: 'fa-sign-in-alt', title: 'login', componentName: 'login'},
-          {icon: 'fa-sign-out-alt', title: 'logout', componentName: 'logout'},
+          {icon: 'fa-sign-in-alt', title: 'login', componentName: 'login',to:'/login'},
+          {icon: 'fa-sign-out-alt', title: 'logout', componentName: 'logout',to:'logout'},
         ],
         links_when_login: [
-          {icon: 'fa-users', title: 'users-list', componentName: 'list-user'},
-          {icon: 'fa-user-cog', title: 'users-store', componentName: 'created-user'},
+          {icon: 'fa-users', title: 'users-list', componentName: 'list-user',to:'/users'},
+          {icon: 'fa-user-cog', title: 'users-store', componentName: 'created-user',to:'/users/create'},
           // {icon: 'fa-user-edit', title: 'user-edit', componentName: 'update-user'},
           // {icon: 'fa-user-slash', title: 'user-delete', componentName: 'create-user'},
         ],
