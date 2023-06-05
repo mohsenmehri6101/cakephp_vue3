@@ -11,7 +11,7 @@
             v-model="data.password"
             label="password"
         ></v-text-field>
-        <v-btn type="button" block class="mt-2" @click="login" >Submit</v-btn>
+        <v-btn type="button" block class="mt-2" @click="login">Submit</v-btn>
       </v-form>
     </v-sheet>
   </div>
@@ -32,9 +32,10 @@ export default {
     login() {
       // axios POST request
       const options = {
-        url: urlBackend + '/users/login',
+        url: 'http://localhost:8765/users/login',
         method: 'POST',
         headers: {
+          "Access-Control-Allow-Origin": "*",
           'Accept': 'application/json',
         },
         data: this.data

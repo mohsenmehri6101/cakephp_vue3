@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 
 /**
  * Users Controller
@@ -14,6 +13,13 @@ use Firebase\JWT\Key;
  */
 class UsersController extends AppController
 {
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+
+        $this->Authentication->allowUnauthenticated(['login']);
+    }
+    
     /**
      * Index method
      *
@@ -113,13 +119,7 @@ class UsersController extends AppController
         $this->viewBuilder()->setOption('serialize', ['user']);
     }
 
-    // in src/Controller/UsersController.php
-    public function beforeFilter(\Cake\Event\EventInterface $event)
-    {
-        parent::beforeFilter($event);
 
-        $this->Authentication->allowUnauthenticated(['login','logout']);
-    }
 
     // in src/Controller/UsersController.php
     public function login()
