@@ -7,8 +7,11 @@
             :key="index"
             link
         >
+          <router-link to="/users">
+
+          </router-link>
           <template v-slot:prepend>
-            <i class="fas pr-5" :class="icon"></i><!--            <v-icon>{{ icon }}</v-icon>-->
+            <i class="fas pr-5" :class="icon"></i>
           </template>
           <v-list-item-title>{{ title }}</v-list-item-title>
         </v-list-item>
@@ -33,75 +36,16 @@
           class="py-8 px-6"
           fluid
       >
-        <v-row>
-          <v-col cols="12">
-            <v-card>
-              <v-list lines="two">
-                <v-list-subheader>users</v-list-subheader>
-                <template v-for="({id,name,family,email,password,created,modify}, index) in users" :key="index">
-                  <v-list-item>
-                    <template v-slot:prepend>
-                      <v-avatar color="grey-darken-1">
-                        <v-img
-                            :width="200"
-                            aspect-ratio="16/9"
-                            :src="avatarsFake[getRandomInt(0,3)]"
-                        />
-                      </v-avatar>
-                    </template>
-                    <v-list-item-title>{{ `${name} ${family}`}}</v-list-item-title>
-                    <v-list-item-subtitle>
-                      {{ email }}
-                    </v-list-item-subtitle>
-                  </v-list-item>
-
-                  <v-divider
-                      v-if="n !== 6"
-                      :key="`divider-${n}`"
-                      inset
-                  ></v-divider>
-                </template>
-              </v-list>
-            </v-card>
-          </v-col>
-        </v-row>
+        <router-view />
       </v-container>
     </v-main>
   </v-app>
 </template>
 <script>
-// import Create from './views/users/Create'
-// import Read from './views/users/Read'
-// import List from './views/users/List'
-// import Update from './views/users/Update'
-// import Login from './views/authentication/Login'
-
 export default {
   components: {
-    // 'create-user': Create,
-    // 'read-user': Read,
-    // 'list-user': List,
-    // 'update-user': Update,
-    //  Login,
   },
   data: () => ({
-        users: [
-          {
-            id: 'id',
-            name: 'name',
-            family: 'family',
-            email: 'mohsen@gmail.com',
-            password: 'password',
-            created: 'created',
-            modify: 'modify',
-          }
-        ],
-        avatarsFake: [
-          '../public/avatars/1.jpg',
-          '../public/avatars/2.jpg',
-          '../public/avatars/3.jpg',
-          '../public/avatars/4.jpg',
-        ],
         links_auth: [
           {icon: 'fa-sign-in-alt', title: 'login', componentName: 'login'},
           {icon: 'fa-sign-out-alt', title: 'logout', componentName: 'logout'},
@@ -114,12 +58,5 @@ export default {
         ],
       }
   ),
-  methods: {
-    getRandomInt(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-    },
-  },
 }
 </script>
