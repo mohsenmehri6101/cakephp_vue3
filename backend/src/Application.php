@@ -74,6 +74,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
         // Load more plugins here
         $this->addPlugin('Authentication');
+
+        $this->addPlugin('Cors');
     }
 
     /**
@@ -119,6 +121,18 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             $middlewareQueue->add(new AuthenticationMiddleware($this));
         }
         // from check condition csrf-token just from browser requests ( in our html)
+
+        // CORS
+//        $middlewareQueue = $middlewareQueue->add(function($request, $response, $next) {
+//            return $next($request, $response)
+//                ->withHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
+//                ->withHeader('Access-Control-Allow-Methods', '*')
+//                ->withHeader('Access-Control-Allow-Credentials', 'true')
+//                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With')
+//                ->withHeader('Access-Control-Allow-Headers', 'Content-Type')
+//                ->withHeader('Access-Control-Allow-Type', 'application/json');
+//        });
+        // CORS
 
         return $middlewareQueue;
     }

@@ -17,7 +17,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
 
-        $this->Authentication->allowUnauthenticated(['login']);
+        $this->Authentication->allowUnauthenticated(['login','index']);
     }
 
     /**
@@ -119,9 +119,6 @@ class UsersController extends AppController
         $this->viewBuilder()->setOption('serialize', ['user']);
     }
 
-
-
-    // in src/Controller/UsersController.php
     public function login()
     {
         $result = $this->Authentication->getResult();

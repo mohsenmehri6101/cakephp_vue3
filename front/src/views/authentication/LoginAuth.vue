@@ -29,29 +29,55 @@ export default {
     }
   }),
   created() {
-    console.log('created run')
+    // console.log('created run')
     window.axios = axios;
   },
   methods: {
-    login() {
-      // axios POST request
-      const options = {
-        url: 'http://127.0.0.1:8765/users/login',
-        method: 'POST',
+    login(){
+      let headers = {
         headers: {
           // "Access-Control-Allow-Origin": "*",
-          // "Content-Type":	"application/json",
+          //       // "Access-Control-Allow-Methods": ['GET', 'POST'],
+          "Content-Type":	"application/json",
           'Accept': 'application/json',
-        },
-        data: this.data
-      }
-      axios(options)
-          .then(response => {
-            console.log(response);
-          }).catch((error) => {
-        console.log('error : ', error)
-      });
+        }
+      };
+
+      axios.post('http://localhost:8765/login/',{email:this.data.email,password:this.data.password},headers)
+          .then(response=>console.log('then\t',response,'\n',response?.data))
+          .catch(response=>console.log('catch\t',response,'\n',response?.data));
+      return 0;
+
+      let url = 'http://localhost:8765/users/login';
+      let body = this.data;
+      axios.post(url, body,headers)
+          .then((result) => {console.log('result\t',result)})
+          .catch(
+              (error) => {
+                console.log('error:\t',error)
+              }
+          );
     },
+    // login() {
+    //   // axios POST request
+    //   const options = {
+    //     url: 'https://localhost:8765/users',
+    //     method: 'POST',
+    //     headers: {
+    //       "Access-Control-Allow-Origin": "*",
+    //       // "Access-Control-Allow-Methods": ['GET', 'POST'],
+    //       // "Content-Type":	"application/json",
+    //       'Accept': 'application/json',
+    //     },
+    //     data: this.data
+    //   }
+    //   axios(options)
+    //       .then(response => {
+    //         console.log(response);
+    //       }).catch((error) => {
+    //     console.log('error : ', error,error?.data,error?.message,error?.status)
+    //   });
+    // },
   },
 }
 </script>
