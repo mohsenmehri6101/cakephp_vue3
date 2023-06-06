@@ -19,7 +19,7 @@ class UsersController extends AppController
 
         $this->Authentication->allowUnauthenticated(['login']);
     }
-    
+
     /**
      * Index method
      *
@@ -156,4 +156,5 @@ class UsersController extends AppController
         $this->Authentication->logout();
         $this->viewBuilder()->setOption('serialize',null);
     }
+
 }

@@ -28,14 +28,19 @@ export default {
       password: null,
     }
   }),
+  created() {
+    console.log('created run')
+    window.axios = axios;
+  },
   methods: {
     login() {
       // axios POST request
       const options = {
-        url: 'http://localhost:8765/users/login',
+        url: 'http://127.0.0.1:8765/users/login',
         method: 'POST',
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          // "Access-Control-Allow-Origin": "*",
+          // "Content-Type":	"application/json",
           'Accept': 'application/json',
         },
         data: this.data
