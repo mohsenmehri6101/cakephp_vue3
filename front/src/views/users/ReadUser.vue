@@ -1,6 +1,7 @@
 <template>
   <div class="about">
-    <h1>read component </h1>
+    <v-row>
+    </v-row>
   </div>
 </template>
 <script>

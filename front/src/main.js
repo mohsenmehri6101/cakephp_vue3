@@ -15,6 +15,7 @@ import {baseUrl} from "../config";
 window.axios = axios;
 window.axios.defaults.baseURL = baseUrl
 window.token = null;
+// window. token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJteWFwcCIsInN1YiI6MiwiZXhwIjoxNjg3MTE5NjE0fQ.EtHMRE9WHpM1jzU7Yoo4P4KKMlIO-PoJv0OVhwe4R0d11eaMOIwHJ7dWCPKaPjR5M0ufheJUn29jERWdXWaViP7GGrV_d5CetOUJHoR662HpUwZroet84OEHp-P_L0ACY9B97wbLYmliwTW_Q5vjJdVpzcBjyqPUBtSmEsOTP94';
 
 const vuetify = createVuetify({
     components, directives

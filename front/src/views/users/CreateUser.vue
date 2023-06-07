@@ -65,14 +65,20 @@ export default {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
         'Accept': 'application/json',
+        'Authorization':`Bearer ${window.token}`
       }
+
       let url = 'users/add';
       let body = this.data;
-      window.axios.post(url, body, headers)
+      window.axios.post(url, body,{headers:headers})
           .then((result) => {
             let user = result?.user ?? null;
             if(user){
               alert("user insert done :\n", `name:\t${user?.name}\n,family:\t${user?.family}\nemail:\t${user?.email}\n`)
+              this.data.name=null;
+              this.data.family=null;
+              this.data.email=null;
+              this.data.password=null;
             }
           })
           .catch((error) => {
