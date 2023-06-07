@@ -4,13 +4,15 @@
 #    RequestHeader unset Proxy
 #</IfModule>
 
-Header set Access-Control-Allow-Origin "*"
-Header set Access-Control-Allow-Methods "GET,PUT,POST,DELETE"
-Header set Access-Control-Allow-Headers "Content-Type, Authorization"
-
 <IfModule mod_rewrite.c>
     RewriteEngine on
     RewriteRule    ^(\.well-known/.*)$ $1 [L]
     RewriteRule    ^$    webroot/    [L]
     RewriteRule    (.*) webroot/$1    [L]
 </IfModule>
+
+#Header always set Access-Control-Allow-Origin "*"
+#Header always set Access-Control-Allow-Headers "X_Token"
+#Header always set Access-Control-Allow-Origin:  http://127.0.0.1:5173
+#Header always set Access-Control-Allow-Methods: POST
+#Header always set Access-Control-Allow-Headers: Content-Type, Authorization

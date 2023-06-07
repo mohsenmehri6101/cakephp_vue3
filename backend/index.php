@@ -13,4 +13,6 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
+//header("Access-Control-Allow-Origin: *");
+
 require 'webroot' . DIRECTORY_SEPARATOR . 'index.php';

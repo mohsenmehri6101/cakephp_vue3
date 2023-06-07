@@ -9,6 +9,12 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free'
+import axios from "axios";
+import {baseUrl} from "../config";
+
+window.axios = axios;
+window.axios.defaults.baseURL = baseUrl
+window.token = null;
 
 const vuetify = createVuetify({
     components, directives

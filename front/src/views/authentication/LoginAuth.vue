@@ -5,11 +5,13 @@
         <v-text-field
             v-model="data.email"
             label="email"
+            :disabled ="email_disable"
         ></v-text-field>
         <v-text-field
             type="password"
             v-model="data.password"
             label="password"
+            :disabled ="password_disable"
         ></v-text-field>
         <v-btn type="button" block class="mt-2" @click="login">Submit</v-btn>
       </v-form>
@@ -17,37 +19,21 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
-import {baseUrl} from "../../../config";
-
 export default {
   components: {},
   data: () => ({
     data: {
       email: null,
       password: null,
-    }
+    },
+    email_disable : false ,
+    password_disable:false,
   }),
   created() {
-    // console.log('created run')
-    window.axios = axios;
-    window.axios.defaults.baseURL = baseUrl
   },
   methods: {
     login() {
       let headers = {
-        headers: {
-          // "Access-Control-Allow-Origin": "*",
-          // // "Access-Control-Allow-Methods": ['GET', 'POST'],
-          "Content-Type": "application/json",
-          'Accept': 'application/json',
-        }
-      };
-
-      window.axios.get('/users/', headers)
-          .then(response => console.log('get users rsponse', response, '\n', response?.data))
-          .catch(response => console.log('response', response, response?.data));
-      headers = {
         headers: {
           "Access-Control-Allow-Origin": "*",
           // // "Access-Control-Allow-Methods": ['GET', 'POST'],
@@ -56,35 +42,23 @@ export default {
         }
       };
       let url = '/users/login';
-      let body = this.data;
+      let body = {
+        email: this.data.email,
+        password: this.data.password
+      };
       window.axios.post(url, body, headers)
           .then((result) => {
-            console.log('result\t', result)
+            let token = result?.token ?? null;
+            if(token && token.value.length !== 0){
+              window.token = token;
+              this.data.password = null;
+              this.data.email = null;
+            }
           })
           .catch((error) => {
             console.log('error:\t', error)
           });
-    },
-    // login() {
-    //   // axios POST request
-    //   const options = {
-    //     url: 'https://localhost:8765/users',
-    //     method: 'POST',
-    //     headers: {
-    //       "Access-Control-Allow-Origin": "*",
-    //       // "Access-Control-Allow-Methods": ['GET', 'POST'],
-    //       // "Content-Type":	"application/json",
-    //       'Accept': 'application/json',
-    //     },
-    //     data: this.data
-    //   }
-    //   axios(options)
-    //       .then(response => {
-    //         console.log(response);
-    //       }).catch((error) => {
-    //     console.log('error : ', error,error?.data,error?.message,error?.status)
-    //   });
-    // },
+    }
   },
 }
 </script>

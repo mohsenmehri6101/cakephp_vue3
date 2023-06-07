@@ -16,16 +16,6 @@ class UsersController extends AppController
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
-         $this->response = $this->response->withHeader('Access-Control-Allow-Origin', '*');
-         $this->response = $this->response->withHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type,Accept');
-         $this->response = $this->response->withHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT');
-
-         //        $this->response = $this->response->withHeader('Access-Control-Allow-Origin','*');
-         //        $this->response = $this->response->withHeader('Access-Control-Allow-Methods','*');
-         //        $this->response = $this->response->withHeader('Access-Control-Allow-Headers','X-Requested-With');
-         //        $this->response = $this->response->withHeader('Access-Control-Allow-Headers','Content-Type, x-xsrf-token');
-         //        $this->response = $this->response->withHeader('Access-Control-Max-Age','172800');
-
         $this->Authentication->allowUnauthenticated(['login','index']);
     }
 
@@ -162,5 +152,4 @@ class UsersController extends AppController
         $this->Authentication->logout();
         $this->viewBuilder()->setOption('serialize',null);
     }
-
 }
