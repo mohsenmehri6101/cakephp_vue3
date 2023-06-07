@@ -17,7 +17,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
+use Cake\Event\EventManagerInterface;
+use Cake\Http\Response;
+use Cake\Http\ServerRequest;
 use Cake\View\JsonView;
 
 
@@ -31,6 +35,11 @@ use Cake\View\JsonView;
  */
 class AppController extends Controller
 {
+    public function __construct(?ServerRequest $request = null, ?Response $response = null, ?string $name = null, ?EventManagerInterface $eventManager = null, ?ComponentRegistry $components = null)
+    {
+        parent::__construct($request, $response, $name, $eventManager, $components);
+        // $this->response = $this->response->withHeader('Access-Control-Allow-Origin', '*');
+    }
 
     public function viewClasses(): array
     {

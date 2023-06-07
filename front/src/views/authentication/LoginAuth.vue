@@ -18,7 +18,7 @@
 </template>
 <script>
 import axios from 'axios';
-import {urlBackend} from "../../../config";
+import {baseUrl} from "../../../config";
 
 export default {
   components: {},
@@ -31,32 +31,39 @@ export default {
   created() {
     // console.log('created run')
     window.axios = axios;
+    window.axios.defaults.baseURL = baseUrl
   },
   methods: {
-    login(){
+    login() {
       let headers = {
         headers: {
           // "Access-Control-Allow-Origin": "*",
-          //       // "Access-Control-Allow-Methods": ['GET', 'POST'],
-          "Content-Type":	"application/json",
+          // // "Access-Control-Allow-Methods": ['GET', 'POST'],
+          "Content-Type": "application/json",
           'Accept': 'application/json',
         }
       };
 
-      axios.post('http://localhost:8765/login/',{email:this.data.email,password:this.data.password},headers)
-          .then(response=>console.log('then\t',response,'\n',response?.data))
-          .catch(response=>console.log('catch\t',response,'\n',response?.data));
-      return 0;
-
-      let url = 'http://localhost:8765/users/login';
+      window.axios.get('/users/', headers)
+          .then(response => console.log('get users rsponse', response, '\n', response?.data))
+          .catch(response => console.log('response', response, response?.data));
+      headers = {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          // // "Access-Control-Allow-Methods": ['GET', 'POST'],
+          // "Content-Type": "application/json",
+          'Accept': 'application/json',
+        }
+      };
+      let url = '/users/login';
       let body = this.data;
-      axios.post(url, body,headers)
-          .then((result) => {console.log('result\t',result)})
-          .catch(
-              (error) => {
-                console.log('error:\t',error)
-              }
-          );
+      window.axios.post(url, body, headers)
+          .then((result) => {
+            console.log('result\t', result)
+          })
+          .catch((error) => {
+            console.log('error:\t', error)
+          });
     },
     // login() {
     //   // axios POST request

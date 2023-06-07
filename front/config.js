@@ -1,4 +1,4 @@
-let urlBackend = 'http://localhost:8765';
+let baseUrl = 'http://localhost:8765';
 export {
-  urlBackend
+  baseUrl
 }
